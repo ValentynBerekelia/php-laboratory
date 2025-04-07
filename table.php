@@ -25,9 +25,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Lab2</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="form_style.css">
 </head>
 <body>
+<div class="background">
+    <div class="context-table">
 
 <table>
     <thead>
@@ -53,30 +55,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php endforeach; ?>
     </tbody>
 </table>
+    </div>
+    <div class="context-form">
 
-<form action="" method="POST">
+    <form action="" method="POST">
     <div class="form">
         <label>Прізвище</label><br>
-        <input type="text" name="surname" id="surname" required/><br>
+        <input type="text" name="surname" id="surname" required  maxlength="15"/><br>
         <label>Ім'я</label><br>
-        <input type="text" name="name" id="name" required/><br>
+        <input type="text" name="name" id="name" required maxlength="15"/><br>
         <label>Автор</label><br>
-        <input type="text" name="author" id="author" required/><br>
+        <input type="text" name="author" id="author" required maxlength="20"/><br>
         <label>Назва книги</label><br>
-        <input type="text" name="bookName" id="bookName" required/><br>
+        <input type="text" name="bookName" id="bookName" required maxlength="20"/><br>
         <label>К-сть сторінок</label><br>
-        <input type="number" name="numberPages" id="numberPages" required/><br>
+        <input type="number" name="numberPages" id="numberPages" required maxlength="10"/><br>
         <label>Дата публікації</label><br>
-        <input type="date" name="datePublication" id="dateOfPublisher" required/><br>
+        <input type="date" name="datePublication" id="dateOfPublisher" required maxlength="10"/><br>
         <label>Назва видавництва</label><br>
-        <input type="text" name="namePublisher" id="namePublisher" required/><br>
+        <input type="text" name="namePublisher" id="namePublisher" required maxlength="10"/><br>
         <label>Видавник</label><br>
-        <input type="text" name="publisher" id="publisher" required/><br>
+        <input type="text" name="publisher" id="publisher" required maxlength="10"/><br>
         <label>Дата поступлення у фонд</label><br>
-        <input type="date" name="dateReceipt" id="dateReceipt" required/><br>
+        <input type="date" name="dateReceipt" id="dateReceipt" required maxlength="10"/><br>
         <input type="submit" value="Подати">
     </div>
 </form>
 <a href="main.php">Home</a>
+    </div>
+</div>
 </body>
 </html>
