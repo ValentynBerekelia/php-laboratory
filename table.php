@@ -77,6 +77,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="submit" value="Подати">
     </div>
 </form>
-
+<a href="main.php">Home</a>
 </body>
 </html>
