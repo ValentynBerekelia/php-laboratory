@@ -1,10 +1,5 @@
 body{
-}
-.home{
-    background-image: url("red_background.webp");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
+    background-color: ghostwhite;
 }
 a{
     color:black;
@@ -30,9 +25,13 @@ a:link {
     font-family: Arial;
 }
 .container-social{
-    background-color: #d12c2c;
-    text-align: center;
-    font-family: Arial;
+padding: 100px;
+text-align: center;
+margin:100px auto;
+width: 200px;
+min-height: 30vh;
+background-color: Lavender;
+border-radius: 10px;
 }
 
 
@@ -59,9 +58,11 @@ td{
     margin: 100px auto;
     width: 400px;
     height: 500px;
-    background-color:azure;
-    box-shadow: 10px 5px 5px cornflowerblue;
+    min-height: 30vh;
+    background-color:Lavender;
+    box-shadow: 10px 5px 5px gray;
     border-radius: 10px;
+    padding: 10px;
 }
 .social{
     display: block;
@@ -69,4 +70,13 @@ td{
     position: absolute;
     left:44.5%;
     bottom: 50%;
+}
+button{
+    background-color:grey;
+    border:none;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
 }

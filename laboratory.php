@@ -9,10 +9,10 @@
 <h1>Мої лабораторні роботи</h1>
 <div class="container-social">
     <hr>
-<li><a href="main.php">Лабораторна робота №1</a><br>
-<li><a href="table.php">Лабораторна робота №2</a><br>
+<a href="main.php">Лабораторна робота №1</a><br>
+<a href="form.php">Лабораторна робота №2</a><br>
     <hr>
-    <a href="main.php">На головну</a><br>
+    <button onclick="window.location.href='main.php'">Home</button>
 </div>
 </body>
 </html>

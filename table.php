@@ -29,8 +29,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 <div class="background">
+    <ul>
+        <li><a href="main.php">Home</a></li>
+        <li><a href="laboratory.php">Laboratory</a></li>
+        <li><a href="form.php">Add data</a></li>
+    </ul>
     <div class="context-table">
-
 <table>
     <thead>
     <tr>
@@ -56,32 +60,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </tbody>
 </table>
     </div>
-    <div class="context-form">
-
-    <form action="" method="POST">
-    <div class="form">
-        <label>Прізвище</label><br>
-        <input type="text" name="surname" id="surname" required  maxlength="15"/><br>
-        <label>Ім'я</label><br>
-        <input type="text" name="name" id="name" required maxlength="15"/><br>
-        <label>Автор</label><br>
-        <input type="text" name="author" id="author" required maxlength="20"/><br>
-        <label>Назва книги</label><br>
-        <input type="text" name="bookName" id="bookName" required maxlength="20"/><br>
-        <label>К-сть сторінок</label><br>
-        <input type="number" name="numberPages" id="numberPages" required maxlength="10"/><br>
-        <label>Дата публікації</label><br>
-        <input type="date" name="datePublication" id="dateOfPublisher" required maxlength="10"/><br>
-        <label>Назва видавництва</label><br>
-        <input type="text" name="namePublisher" id="namePublisher" required maxlength="10"/><br>
-        <label>Видавник</label><br>
-        <input type="text" name="publisher" id="publisher" required maxlength="10"/><br>
-        <label>Дата поступлення у фонд</label><br>
-        <input type="date" name="dateReceipt" id="dateReceipt" required maxlength="10"/><br>
-        <input type="submit" value="Подати">
-    </div>
-</form>
-<a href="main.php">Home</a>
     </div>
 </div>
 </body>

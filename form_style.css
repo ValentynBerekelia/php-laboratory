@@ -1,24 +1,107 @@
+body{
+    /*background-image: url("red_background.webp");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;*/
+}
 .background{
     position: absolute;
-    top:0px;
-    left:0px;
-
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
 }
-
 .context-form{
-    position: absolute;
-    text-align: justify;
-    padding: 10px;!important;
-    margin: 100px;!important;
-    right:0;
+    padding: 100px;
+    text-align: center;
+    margin:100px auto;
+    width: 200px;
+    min-height: 30vh;
+    background-color: Lavender;
+    border-radius: 10px;
 }
 
+input[type=text],input[type=number]{
+    background-color: white;
+    max-width: 200px;
+    height: 10px;
+    padding: 5px;
+    border:2px solid #111111;
+    border-radius: 5px;
+    color:#111111;
+}
+input[type=date]{
+    background-color: white;
+    max-width: 300px;
+    width: 196px;
+    height: 10px;
+    padding: 5px;
+    border:2px solid #111111;
+    border-radius: 5px;
+    color:#111111;
+}
+input:focus{
+    color:black;
+    background-color:honeydew;
+    outline-color:rgb(0,255,255);
+    transition: .1s;
+    transition-property:box-shadow;
+}
+
+input[type=submit],input[type=reset]{
+    background-color:green;
+    border:none;
+    color: white;
+    padding: 10px 10px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+button{
+    background-color:green;
+    border:none;
+    color: white;
+    padding: 10px 10px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
 .context-table{
-
+    padding: 100px;
+    text-align: center;
+    margin:100px auto;
+    width: 50%;
+    min-height: 30vh;
+    background-color: white;
+    border-radius: 10px;
 }
-* {
-    padding: 0px;
-    margin: 0px;
-    font-family: sans-serif;
-    box-sizing: border-box;
+a{
+    color:black;
+}
+table{
+    border-collapse: collapse;
+}
+tr,td,th{
+    border:1px solid black;
+}
+
+li{
+    float: left;
+}
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+li a{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+li a:hover{
+    background-color: #111;
 }
