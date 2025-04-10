@@ -30,8 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 <div class="background">
     <ul>
-        <li><a href="main.php">Home</a></li>
-        <li><a href="laboratory.php">Laboratory</a></li>
+        <li><a href="Home.php">Home</a></li>
         <li><a href="form.php">Add data</a></li>
     </ul>
     <div class="context-table">

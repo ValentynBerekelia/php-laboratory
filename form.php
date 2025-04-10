@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label>Назва книги</label><br>
                 <input type="text" name="bookName" id="bookName" required minlength="5"/><br>
                 <label>К-сть сторінок</label><br>
-                <input type="number"  name="numberPages" id="numberPages" required min="1" max="999"/><br>
+                <input type="number"  name="numberPages" id="numberPages" required min="1" max="20"/><br>
                 <label>Дата публікації</label><br>
                 <input type="date" name="datePublication" id="dateOfPublisher" required /><br>
                 <label>Назва видавництва</label><br>

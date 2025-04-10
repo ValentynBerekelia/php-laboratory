@@ -21,7 +21,16 @@ body{
     border-radius: 10px;
 }
 
-input[type=text],input[type=number]{
+input[type=text]{
+    background-color: white;
+    max-width: 200px;
+    height: 10px;
+    padding: 5px;
+    border:2px solid #111111;
+    border-radius: 5px;
+    color:#111111;
+}
+input[type=number]{
     background-color: white;
     max-width: 200px;
     height: 10px;
@@ -104,4 +113,7 @@ li a{
 }
 li a:hover{
     background-color: #111;
+}
+h3{
+    text-align: center;
 }
