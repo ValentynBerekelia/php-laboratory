@@ -25,12 +25,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Lab2</title>
-    <link rel="stylesheet" href="form_style.css">
+    <link rel="stylesheet" href="../form_style.css">
 </head>
 <body>
 <div class="background">
     <ul>
-        <li><a href="Home.php">Home</a></li>
+        <li><a href="../laboratory-01/Home.php">Home</a></li>
         <li><a href="form.php">Add data</a></li>
     </ul>
     <div class="context-table">

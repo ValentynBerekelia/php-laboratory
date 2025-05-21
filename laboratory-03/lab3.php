@@ -1,7 +1,7 @@
 <?php
-require 'rw_file.php';
+require '../laboratory-02/rw_file.php';
 
-$data = read_from_file("file.txt");
+$data = read_from_file("../laboratory-02/file.txt");
 usort($data, function($a, $b) {
     return intval($a[4]) <=> intval($b[4]);
 });
@@ -16,13 +16,13 @@ $author_count = count($unique_authors);
 <head>
     <meta charset="UTF-8">
     <title>Lab2</title>
-    <link rel="stylesheet" href="form_style.css">
+    <link rel="stylesheet" href="../form_style.css">
 </head>
 <body>
 <div class="background">
     <ul>
-        <li><a href="Home.php">Home</a></li>
-        <li><a href="form.php">Add data</a></li>
+        <li><a href="../laboratory-01/Home.php">Home</a></li>
+        <li><a href="../laboratory-02/form.php">Add data</a></li>
     </ul>
 
     <h3>Кількість унікальних авторів: <?= $author_count ?></h3>

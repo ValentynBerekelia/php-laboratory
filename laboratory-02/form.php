@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Lab2</title>
-    <link rel="stylesheet" href="form_style.css">
+    <link rel="stylesheet" href="../form_style.css">
 </head>
 <body>
 <div class="background">

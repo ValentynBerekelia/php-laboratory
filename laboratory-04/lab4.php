@@ -1,7 +1,7 @@
 <?php
-require 'rw_file.php';
+require '../laboratory-02/rw_file.php';
 
-$data = read_from_file("file.txt");
+$data = read_from_file("../laboratory-02/file.txt");
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 if ($search !== '') {
     $data = array_filter($data, function($row) use ($search) {
@@ -15,13 +15,13 @@ if ($search !== '') {
 <head>
     <meta charset="UTF-8">
     <title>Пошук книг</title>
-    <link rel="stylesheet" href="form_style.css">
+    <link rel="stylesheet" href="../form_style.css">
 </head>
 <body>
 <div class="background">
     <ul>
-        <li><a href="Home.php">Home</a></li>
-        <li><a href="form.php">Add data</a></li>
+        <li><a href="../laboratory-01/Home.php">Home</a></li>
+        <li><a href="../laboratory-02/form.php">Add data</a></li>
     </ul>
 
     <form method="GET" style="margin-bottom: 20px;">
