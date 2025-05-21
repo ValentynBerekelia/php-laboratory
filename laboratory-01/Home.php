@@ -27,8 +27,14 @@
                 <hr>
                 <a href="../laboratory-04/lab4.php">Лабораторна робота №4</a>
                 <hr>
-                <a href="../laboratory-05/lab-05.php">Лабораторна робота №5</a>
-        </div>
+                <a href="../laboratory-05/form-home-page.php">Лабораторна робота №5</a>
+                <hr>
+                <a href="../laboratory-05/lab-05-1-form.php">Лабораторна робота №5.1</a>
+                <hr>
+                <a href="../laboratory-05/lab-05-2.php">Лабораторна робота №5.2</a>
+                <hr>
+                <a href="../laboratory-06/form-home-page.php">Лабораторна робота №6</a>
+            </div>
     </div>
 </div>
 </body>

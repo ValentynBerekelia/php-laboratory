@@ -1,25 +1,4 @@
-<?php
-require '../laboratory-02/rw_file.php';
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $new_entry = [
-        $_POST["surname"],
-        $_POST["name"],
-        $_POST["author"],
-        $_POST["bookName"],
-        $_POST["numberPages"],
-        $_POST["datePublication"],
-        $_POST["namePublisher"],
-        $_POST["publisher"],
-        $_POST["dateReceipt"]
-    ];
-
-    write_to_file("file.txt", $new_entry);
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit();
-}
-?>
-
+<?php require '../laboratory-05/lab-05-db_connect.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,8 +9,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 <div class="background">
     <div class="content">
-<div class="context-form">
-        <form action="" method="POST">
+        <div class="context-form">
+            <form action="" method="POST">
                 <label>Ім'я</label><br>
                 <input type="text" name="name" id="name" required minlength="1"/><br>
                 <label>Прізвище</label><br>
@@ -52,9 +31,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="date" name="dateReceipt" id="dateReceipt" required /><br>
                 <input type="submit" value="Submit">
                 <input type="reset" value="Reset"/>
-            <button onclick="window.location.href='table.php'">View</button>
-        </form>
-    </div>
+                <button onclick="window.location.href='lab-05-1.php'">View</button>
+            </form>
+        </div>
     </div>
 </div>
 </body>

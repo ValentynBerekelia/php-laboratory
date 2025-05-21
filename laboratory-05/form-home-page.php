@@ -1,25 +1,4 @@
-<?php
-require '../laboratory-02/rw_file.php';
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $new_entry = [
-        $_POST["surname"],
-        $_POST["name"],
-        $_POST["author"],
-        $_POST["bookName"],
-        $_POST["numberPages"],
-        $_POST["datePublication"],
-        $_POST["namePublisher"],
-        $_POST["publisher"],
-        $_POST["dateReceipt"]
-    ];
-
-    write_to_file("file.txt", $new_entry);
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit();
-}
-?>
-
+<?php require '../laboratory-05/lab-05-db_connect.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
