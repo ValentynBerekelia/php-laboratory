@@ -1,4 +1,10 @@
-<?php require '../laboratory-06/lab-06-db_connect.php'; ?>
+<?php 
+require '../laboratory-06/lab-06-db_connect.php';
+
+if (isset($message) && !empty($message)) {
+    echo "<div class='message'>$message</div>";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,16 +28,16 @@
                 <label>К-сть сторінок</label><br>
                 <input type="number"  name="numberPages" id="numberPages" required /><br>
                 <label>Дата публікації</label><br>
-                <input type="date" name="datePublication" id="dateOfPublisher" required /><br>
+                <input type="date" name="datePublished" id="dateOfPublisher" required /><br>
                 <label>Назва видавництва</label><br>
                 <input type="text" name="namePublisher" id="namePublisher" required maxlength="10"/><br>
                 <label>Видавник</label><br>
                 <input type="text" name="publisher" id="publisher" required maxlength="10"/><br>
                 <label>Дата поступлення у фонд</label><br>
-                <input type="date" name="dateReceipt" id="dateReceipt" required /><br>
+                <input type="date" name="dateReceived" id="dateReceipt" required /><br>
                 <input type="submit" value="Submit">
                 <input type="reset" value="Reset"/>
-                <button onclick="window.location.href='../laboratory-06/lab-06-1-table.php'">View</button>
+                <button onclick="window.location.href='lab-06-1-table.php'">View</button>
             </form>
         </div>
     </div>

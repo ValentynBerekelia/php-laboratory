@@ -1,5 +1,13 @@
 <?php
-$dbPath = __DIR__ . '/library_normalized.db';
+$dbPath = __DIR__ . '/library.db';
+$message = '';
+
+function validateInput($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
 
 try {
     $isNewDatabase = !file_exists($dbPath);
@@ -8,83 +16,95 @@ try {
     $pdo->exec('PRAGMA foreign_keys = ON');
 
     if ($isNewDatabase) {
-        $pdo->exec("CREATE TABLE IF NOT EXISTS authors (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            surname TEXT NOT NULL,
-            name TEXT NOT NULL
-        )");
-
-        $pdo->exec("CREATE TABLE IF NOT EXISTS publishers (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL
-        )");
-
-        $pdo->exec("CREATE TABLE IF NOT EXISTS books (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            surname TEXT NOT NULL,
-            name TEXT NOT NULL,
-            author_id INTEGER NOT NULL,
-            publisher_id INTEGER NOT NULL,
-            book_name TEXT NOT NULL,
-            number_pages INTEGER NOT NULL,
-            date_published TEXT NOT NULL,
-            date_received TEXT NOT NULL,
-            created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (author_id) REFERENCES authors(id),
-            FOREIGN KEY (publisher_id) REFERENCES publishers(id)
-        )");
+        $pdo->exec("
+            CREATE TABLE persons (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                surname TEXT NOT NULL,
+                name TEXT NOT NULL
+            );
+            CREATE TABLE books (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                author TEXT NOT NULL,
+                book_name TEXT NOT NULL,
+                number_pages INTEGER NOT NULL,
+                date_published TEXT NOT NULL,
+                publisher TEXT NOT NULL
+            );
+            CREATE TABLE receipts (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                person_id INTEGER NOT NULL,
+                book_id INTEGER NOT NULL,
+                date_received TEXT NOT NULL,
+                created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (person_id) REFERENCES persons(id) ON DELETE CASCADE,
+                FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
+            );
+        ");
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $surname = trim($_POST['surname'] ?? '');
-        $name = trim($_POST['name'] ?? '');
-        $authorFull = trim($_POST['author'] ?? '');
-        $bookName = trim($_POST['bookName'] ?? '');
-        $numberPages = intval($_POST['numberPages'] ?? 0);
-        $datePublished = $_POST['datePublished'] ?? '';
-        $publisherName = trim($_POST['publisher'] ?? '');
-        $dateReceived = $_POST['dateReceived'] ?? '';
+        $surname = validateInput($_POST['surname'] ?? '');
+        $name = validateInput($_POST['name'] ?? '');
+        $author = validateInput($_POST['author'] ?? '');
+        $bookName = validateInput($_POST['bookName'] ?? '');
+        $numberPages = filter_var($_POST['numberPages'] ?? '', FILTER_VALIDATE_INT);
+        $datePublished = validateInput($_POST['datePublished'] ?? '');
+        $publisher = validateInput($_POST['publisher'] ?? '');
+        $dateReceived = validateInput($_POST['dateReceived'] ?? '');
 
+        $datePublishedValid = DateTime::createFromFormat('Y-m-d', $datePublished) !== false;
+        $dateReceivedValid = DateTime::createFromFormat('Y-m-d', $dateReceived) !== false;
 
-        if ($surname && $name && $authorFull && $bookName && $publisherName && $numberPages > 0 && $datePublished && $dateReceived) {
-            $authorParts = explode(' ', $authorFull);
-            $authorSurname = $authorParts[0] ?? '';
-            $authorName = $authorParts[1] ?? '';
-
-            if ($authorSurname && $authorName) {
-                $stmt = $pdo->prepare("SELECT id FROM authors WHERE surname = ? AND name = ?");
-                $stmt->execute([$authorSurname, $authorName]);
-                $authorId = $stmt->fetchColumn();
-
-                if (!$authorId) {
-                    $stmt = $pdo->prepare("INSERT INTO authors (surname, name) VALUES (?, ?)");
-                    $stmt->execute([$authorSurname, $authorName]);
-                    $authorId = $pdo->lastInsertId();
+        if ($surname && $name && $author && $bookName && $numberPages && $datePublishedValid && $publisher && $dateReceivedValid) {
+            try {
+                $pdo->beginTransaction();
+                $stmt = $pdo->prepare("SELECT id FROM persons WHERE surname = ? AND name = ?");
+                $stmt->execute([$surname, $name]);
+                $person = $stmt->fetch();
+                if (!$person) {
+                    $stmt = $pdo->prepare("INSERT INTO persons (surname, name) VALUES (?, ?)");
+                    $stmt->execute([$surname, $name]);
+                    $personId = $pdo->lastInsertId();
+                } else {
+                    $personId = $person['id'];
                 }
-                $stmt = $pdo->prepare("SELECT id FROM publishers WHERE name = ?");
-                $stmt->execute([$publisherName]);
-                $publisherId = $stmt->fetchColumn();
-
-                if (!$publisherId) {
-                    $stmt = $pdo->prepare("INSERT INTO publishers (name) VALUES (?)");
-                    $stmt->execute([$publisherName]);
-                    $publisherId = $pdo->lastInsertId();
+                $stmt = $pdo->prepare("SELECT id FROM books WHERE author = ? AND book_name = ?");
+                $stmt->execute([$author, $bookName]);
+                $book = $stmt->fetch();
+                if (!$book) {
+                    $stmt = $pdo->prepare("INSERT INTO books (author, book_name, number_pages, date_published, publisher) VALUES (?, ?, ?, ?, ?)");
+                    $stmt->execute([$author, $bookName, $numberPages, $datePublished, $publisher]);
+                    $bookId = $pdo->lastInsertId();
+                } else {
+                    $bookId = $book['id'];
                 }
-                $stmt = $pdo->prepare("INSERT INTO books 
-                    (surname, name, author_id, publisher_id, book_name, number_pages, date_published, date_received)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-                $stmt->execute([$surname, $name, $authorId, $publisherId, $bookName, $numberPages, $datePublished, $dateReceived]);
+                $stmt = $pdo->prepare("INSERT INTO receipts (person_id, book_id, date_received) VALUES (?, ?, ?)");
+                $stmt->execute([$personId, $bookId, $dateReceived]);
+
+                $pdo->commit();
+                $message = "Книга успішно додана.";
+            } catch (Exception $e) {
+                $pdo->rollBack();
+                throw $e;
             }
+        } else {
+            $message = "Будь ласка, заповніть усі поля коректно.";
         }
     }
+
     $stmt = $pdo->query("
-        SELECT b.*, a.surname AS author_surname, a.name AS author_name, p.name AS publisher_name
-        FROM books b
-        JOIN authors a ON b.author_id = a.id
-        JOIN publishers p ON b.publisher_id = p.id
-        ORDER BY b.created_at DESC
+        SELECT r.*, p.surname, p.name, b.author, b.book_name 
+        FROM receipts r
+        JOIN persons p ON r.person_id = p.id
+        JOIN books b ON r.book_id = b.id
+        ORDER BY r.created_at DESC
     ");
-    $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 } catch (PDOException $e) {
+    $message = "Помилка бази даних: " . $e->getMessage();
+    error_log("Database Error: " . $e->getMessage());
+} catch (Exception $e) {
+    $message = "Сталася помилка: " . $e->getMessage();
+    error_log("General Error: " . $e->getMessage());
 }
